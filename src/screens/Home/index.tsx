@@ -11,13 +11,15 @@ import { Participant } from '../../components/Participant'
 import { styles } from './styles'
 
 export function Home() {
-  const [participants, setParticipants] = useState(['João'])
+  const [participants, setParticipants] = useState<string[]>([])
+  const [participantName, setParticipantName] = useState('')
 
   function handleParticipantAdd() {
-    if (participants.includes('Rodrigo')) {
+    if (participants.includes(participantName)) {
       Alert.alert('Participante existe', 'Já existe um participante na lista com esse nome')
     } else {
-      setParticipants(prevState => [...prevState, 'Ana'])
+      setParticipants(prevState => [...prevState, participantName])
+      setParticipantName('')
     }
   }
 
@@ -50,6 +52,8 @@ export function Home() {
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6B6B6B"
+          value={participantName}
+          onChangeText={setParticipantName}
         />
         <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
           <Text style={styles.buttonText}>
